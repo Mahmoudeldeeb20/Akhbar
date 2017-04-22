@@ -1,4 +1,4 @@
 ALTER TABLE `marks`
-  ADD CONSTRAINT `user_1` FOREIGN KEY (`user_id`) REFERENCES `userdatabase` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `user_1` FOREIGN KEY (`user_id`) REFERENCES `userdatabase` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
