@@ -1,6 +1,6 @@
 <?php
 include 'dph.php';
-
+session_start();
 
 $userid = $_POST ['userid'];
 
