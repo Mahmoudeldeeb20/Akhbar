@@ -4,12 +4,18 @@ include 'dph.php';
 
 $userid = $_POST ['userid'];
 
-$sql = "SELECT * FROM userdatabase WHERE userid='$userid'";
+$sql = "SELECT * FROM userdatabase WHERE userid='$userid' LIMIT 1";
 $result = $conn->query($sql);
-if (!$row = $result->fetch_assoc()){
+$row = $result->fetch_assoc()
+if (!$row){
     header ("location: loginfirstx.php");
 }
 else{
     $_SESSION['userid']=$userid;
-    header ("location: signup.php");
+    if ($row['activation'] == 0) {
+        header ("location: signup.php");
+    } else {
+           // put the login page here
+    }
+    
 }
