@@ -1,1 +1,136 @@
-a
+<?php 
+    session_start();
+?>
+
+
+
+<?php 
+        include "functions.php";
+        if($_SESSION['username']){
+          include 'navadmin.php';
+            $do = isset($_GET['do']) ? $_GET['do'] : 'Manage';
+            
+            if ($do == 'Manage'){ // Manage Page 
+        
+                
+                // Fetch The Data from The Table 
+        $stmt = $conn->prepare("SELECT * FROM signup WHERE GroupID!=1");
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $members = array();
+        while($row = $result->fetch_assoc()){
+                $members[] = $row;
+        
+        
+        }
+                                
+?>            
+
+    <div class="container">
+    <table class="main-table text-center table table-bordered table-responsive">
+        <tr>
+            <td class="first-row">#ID</td>
+            <td class="first-row">Username</td>
+            <td class="first-row">Email</td>
+            <td class="first-row">Phone</td>
+            <td class="first-row">Blood</td>
+            <td class="first-row">Birth Date</td>
+            <td class="first-row">Health Condition</td>
+            <td class="first-row">Control</td>
+        </tr>
+        <?php 
+        if(isset($members)){
+            foreach($members as $member){
+                echo "<tr>";
+                    echo "<td>".$member['id']."</td>";
+                    echo "<td>".$member['username']."</td>";
+                    echo "<td>".$member['email']."</td>";
+                    echo "<td>".$member['phone']."</td>";
+                    echo "<td>".$member['Blood']."</td>";
+                    echo "<td>".$member['birthDate']."</td>";
+                    echo "<td>".$member['healthCondition']."</td>";
+                    echo "<td>";
+                            echo "<a href='loginadmin.php?do=Delete&userid=".$member['id']."' class='btn btn-danger confirm'>Delete</a>";
+                    echo "</td>";
+                echo "</tr>";
+                
+                }
+            
+            
+            
+            
+            
+            }
+        
+        
+        
+        
+        
+        
+        ?>
+        
+    
+    
+    </table>
+
+
+</div>
+
+    
+
+
+
+            
+        <?php    } elseif ($do == 'Delete'){ 
+                
+            $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0;
+                
+                $stmt = $conn->prepare("DELETE FROM signup WHERE id=? AND GroupID=0 LIMIT 1");
+                $stmt->bind_param('s',$userID);
+                $userID = $userid;
+                $stmt->execute();
+                
+                
+                
+                header("refresh:2;url=loginadmin.php?do=Manage"); 
+                echo "<div class='alert alert-success'>1 Member Is Deleted</div>";
+                exit();
+                
+            
+            }
+            
+            
+            
+         
+        } else {
+            
+            sessiondel();
+            
+        
+        }
+        
+
+
+
+
+
+
+  /*      
+
+        $stmt = $conn->prepare("SELECT * FROM signup WHERE GroupID!=1");
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $members = array();
+        while($row = $result->fetch_assoc()){
+                $members[] = $row;
+        
+        
+        }
+
+    */
+?>
+
+
+
