@@ -75,28 +75,34 @@
                $result = $conn->query($sql);
                $row = $result->fetch_assoc();
         
-        ?>
+                
         
-        <tbody>
-            <tr class="club-hover">
-                <th scope="row"><?php echo $row['user_id']?></th>
-                <td><?php echo $row['first_name']?></td>
-                <td><?php echo $row['lec']?></td>
-                <td><?php echo $row['att']?></td>
-                <td><?php echo $row['midterm']?></td>
-                <td><?php echo $row['pexam']?></td>
-                <td><?php echo $row['fexam']?></td>
-            </tr>
+      echo  "<tbody>";
+            echo "<tr class='club-hover'>";
+               echo  "<th scope='row'> " . $row['user_id']  . "</th>";
+                echo "<td>" . $row['first_name'] ."</td>";
+                echo "<td>" .  $row['lec']."</td>";
+                echo "<td>" . $row['att']."</td>";
+                echo "<td>" . $row['att']."</td>";
+                echo "<td>" . $row['att']."</td>";
+                echo "<td>" . $row['att']."</td>";
+                echo '<td>
+                    <a class="btn btn-success">Edit</a>
+                </td>';
+            echo "</tr>";
            
-        </tbody>
+        echo "</tbody>";
+          
         
-        <?php } else if ($_SESSION['activation'] == 2) {
+        
+         } else if ($_SESSION['activation'] == 2) {
                   $sql = "SELECT marks.* , userdatabase.* FROM marks INNER JOIN userdatabase ON userdatabase.userid = marks.user_id LIMIT 1";
                $result = $conn->query($sql);
                $data = array();
             while($row = $result->fetch_assoc()){
                     $data[] = $row;
             }
+            if(isset($data)){
                 foreach($student as $data) {
                 
                 
@@ -104,7 +110,7 @@
         
       echo  "<tbody>";
             echo "<tr class='club-hover'>";
-               echo  "<th scope='row'> " . $row['user_id']  . "</th>";
+               echo  "<th scope='row'> " . $student['user_id']  . "</th>";
                 echo "<td>" . $student['first_name'] ."</td>";
                 echo "<td>" .  $student['lec']."</td>";
                 echo "<td>" . $student['att']."</td>";
@@ -122,6 +128,7 @@
         
         
          } 
+            }
         }?>
     </table>
 
