@@ -1,3 +1,15 @@
+<?php 
+    include 'dhp.php';    
+    session_start();
+        
+        if($_SESSION['userid']){
+        
+            
+           
+        
+
+?>
+
 <html>
 
 <head>
@@ -42,7 +54,7 @@
 
     <img class="navbar-img" src="../img/navbar 2.jpg">
 
-
+   
 
 
     <table class="table">
@@ -57,60 +69,68 @@
                 <th>فاينال</th>
             </tr>
         </thead>
-        <tbody>
-            <tr class="club-hover">
-                <th scope="row">2351458</th>
-                <td>Mahmoud Hassan Ahmed</td>
-                <td>10</td>
-                <td>7</td>
-                <td>14/20</td>
-                <td>9/10</td>
-                <td>75/100</td>
-            </tr>
-            <tr class="club-hover">
-                <th scope="row">3215486</th>
-                <td>Shokry Ahmed Mohamed</td>
-                <td>10</td>
-                <td>8</td>
-                <td>18/20</td>
-                <td>5/10</td>
-                <td>80/100</td>
-            </tr>
-            <tr class="club-hover">
-                <th scope="row">2315482</th>
-                <td>Mohamed Abdel Rahman Hossam</td>
-                <td>10</td>
-                <td>6</td>
-                <td>17/20</td>
-                <td>7/10</td>
-                <td>72/100</td>
-            </tr>
-            <tr class="club-hover">
-                <th scope="row">1204523</th>
-                <td>Ahmed Fahmy Hitham</td>
-                <td>10</td>
-                <td>5</td>
-                <td>19/20</td>
-                <td>6/10</td>
-                <td>68/100</td>
-            </tr>
-            <tr class="club-hover">
-                <th scope="row">9582301</th>
-                <td>Abdel Rahman Mahmoud</td>
-                <td>10</td>
-                <td>9</td>
-                <td>15/20</td>
-                <td>9/10</td>
-                <td>75/100</td>
-            </tr>
-
-        </tbody>
+        
+         <?php if ($_SESSION['activation'] == 1) {
+               $sql = "SELECT marks.* , userdatabase.* FROM marks INNER JOIN userdatabase ON userdatabase.userid='".$_SESSION['activation']."' AND userdatabase.userid = marks.user_id LIMIT 1";
+               $result = $conn->query($sql);
+               $row = $result->fetch_assoc();
+        
+                
+        
+      echo  "<tbody>";
+            echo "<tr class='club-hover'>";
+               echo  "<th scope='row'> " . $row['user_id']  . "</th>";
+                echo "<td>" . $row['first_name'] ."</td>";
+                echo "<td>" .  $row['lec']."</td>";
+                echo "<td>" . $row['att']."</td>";
+                echo "<td>" . $row['att']."</td>";
+                echo "<td>" . $row['att']."</td>";
+                echo "<td>" . $row['att']."</td>";
+                echo '<td>
+                    <a class="btn btn-success">Edit</a>
+                </td>';
+            echo "</tr>";
+           
+        echo "</tbody>";
+          
+        
+        
+         } else if ($_SESSION['activation'] == 2) {
+                  $sql = "SELECT marks.* , userdatabase.* FROM marks INNER JOIN userdatabase ON userdatabase.userid = marks.user_id LIMIT 1";
+               $result = $conn->query($sql);
+               $data = array();
+            while($row = $result->fetch_assoc()){
+                    $data[] = $row;
+            }
+            if(isset($data)){
+                foreach($student as $data) {
+                
+                
+      
+        
+      echo  "<tbody>";
+            echo "<tr class='club-hover'>";
+               echo  "<th scope='row'> " . $student['user_id']  . "</th>";
+                echo "<td>" . $student['first_name'] ."</td>";
+                echo "<td>" .  $student['lec']."</td>";
+                echo "<td>" . $student['att']."</td>";
+                echo "<td>" . $student['att']."</td>";
+                echo "<td>" . $student['att']."</td>";
+                echo "<td>" . $student['att']."</td>";
+                echo '<td>
+                    <a class="btn btn-success">Edit</a>
+                </td>';
+            echo "</tr>";
+           
+        echo "</tbody>";
+        
+        
+        
+        
+         } 
+            }
+        }?>
     </table>
-    <div class="table-buttom">
-        <a href="" class="btn btn-primary btn-lg active" role="button">Edit</a>
-        <a href="" class="btn btn-primary btn-lg active" role="button">Save</a>
-    </div>
-
 
 
     <footer class="footer-distributed hvr-shutter-out-horizontal">
@@ -150,3 +170,11 @@
 </body>
 
 </html>
+
+
+
+<?php } else {
+                echo "You are Not Logged In";
+        
+        
+        } ?>
