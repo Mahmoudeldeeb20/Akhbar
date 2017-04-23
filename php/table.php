@@ -100,29 +100,29 @@
                 foreach($student as $data) {
                 
                 
-       
-        ?>
-        <tbody>
-            <tr class="club-hover">
-                <th scope="row"><?php echo $row['user_id']?></th>
-                <td><?php echo $student['first_name']?></td>
-                <td><?php echo $student['lec']?></td>
-                <td><?php echo $student['att']?></td>
-                <td><?php echo $student['midterm']?></td>
-                <td><?php echo $student['pexam']?></td>
-                <td><?php echo $student['fexam']?></td>
-                <td>
+      
+        
+      echo  "<tbody>";
+            echo "<tr class='club-hover'>";
+               echo  "<th scope='row'> " . $row['user_id']  . "</th>";
+                echo "<td>" . $student['first_name'] ."</td>";
+                echo "<td>" .  $student['lec']."</td>";
+                echo "<td>" . $student['att']."</td>";
+                echo "<td>" . $student['att']."</td>";
+                echo "<td>" . $student['att']."</td>";
+                echo "<td>" . $student['att']."</td>";
+                echo '<td>
                     <a class="btn btn-success">Edit</a>
-                </td>
-            </tr>
+                </td>';
+            echo "</tr>";
            
-        </tbody>
+        echo "</tbody>";
         
         
         
         
-        <?php } ?>
-        <?php }?>
+         } 
+        }?>
     </table>
 
 
